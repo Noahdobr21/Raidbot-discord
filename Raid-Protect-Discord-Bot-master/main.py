@@ -1,3 +1,4 @@
+from http import client
 import discord
 import os
 import json
@@ -8,10 +9,18 @@ from Tools.translate import Translate
 intents = discord.Intents.all()
 intents.members = True
 
-bot = commands.Bot(getGuildPrefix, intents = intents)
+bot = commands.Bot(command_prefix="$", intents = intents)
+# test cmd
 @bot.command()
-async def coucou(ctx):
-    print("coucou")
+async def test(ctx, *args):
+    arguments = ', '.join(args)
+    await ctx.send(f'{len(args)} arguments: {arguments}')
+# say cmd
+@bot.command()
+async def dit(ctx, arg):
+    await ctx.send(arg)
+    await ctx.message.delete()
+
 
 # HELP
 bot.remove_command("help") # To create a personal help command 
